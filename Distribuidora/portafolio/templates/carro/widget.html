@@ -1,0 +1,180 @@
+<div id="contenedor">
+    <div class="container" id="table-car">
+    
+            <table class="table table-bordered" style="color: black; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border: 2px solid #333;">
+
+                <thead>
+                    <tr>
+
+                        <th colspan="5" class="text-center" >
+
+                            Carro Compras
+                        
+                        </th>
+                    
+                    </tr>
+
+                    <tr>
+
+                        <th>Producto</th>
+                        <th>Imagen</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                        <th>Quitar</th>
+                    
+                    </tr>
+
+                <thead>
+
+                <tbody>
+                    {% if request.session.carro.items %}
+                        {% for key, value in request.session.carro.items %}
+
+                            <tr class="text-center">
+
+                                <td>{{value.nombre}}</td>
+                                <td><img src="{{value.imagen}}" alt="" width="75px" height="40px"></td>
+                                <td>{{value.cantidad}}</td>
+                                <td>
+
+                                    <a href="{% url 'carro:agregar' value.productos_id %}" class="btn btn-sm btn-primary boton_sumar" id="boton_sumar"> + </a>
+                                    <a href="{% url 'carro:restar' value.productos_id %}" class="btn btn-sm btn-primary boton_restar" id="boton_restar"> - </a> <br/>
+
+                                    ${{value.precio|floatformat:0}} - COP
+
+                                </td>
+
+                                <td>
+
+                                    <a href="{% url 'carro:eliminar' value.productos_id  %}" class="boton_eliminar"><i class="fa-solid fa-trash"></i>
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+                            <tr>
+                                <td colspan="5">
+
+                                    <a href="{% url 'carro:limpiar' %}"  class="btn btn-danger">Vaciar Carro</a>
+
+                                        <!--<form action="{% url 'carro:limpiar' %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="boton-vaciar">Vaciar carrito</button>
+                                        </form>-->
+                                    
+                                </td>
+                            </tr>
+                        <tfoot>
+                            <td colspan="5" class="subtotal-title">TOTAL:${{importe_total_carro|floatformat:0}} - COP</td>
+
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">
+                                        <a href="../pedidos"  class="btn btn-primary">Comprar</a>
+                                    </td>
+                                </tr>
+                            
+                        </tfoot>
+
+                    {% else %}
+                        <tr>
+                            <td colspan="5">
+                                <div class="alert alert-danger text-center">
+
+                                    Sin Productos
+                                
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+
+
+
+            <!--<tfoot>
+                    <tr>
+                        <td colspan="3">
+
+                            Total: {{importe_total_carro}} $-COP
+
+                        </td>
+                    </tr>
+                </tfoot>-->
+
+            </table>
+    </div>
+</div>
+
+            <style>
+                #contenedor {
+                width: 70%; /* Ancho del contenedor al 50% de la ventana */
+                margin-top: 30px;
+                margin-bottom: 30px;
+                margin-left: 200px;
+                padding: 20px;
+                border: 1px solid white; /* Contorno limpio */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra suave */
+                text-align: center;
+                transition: box-shadow 0.3s; /* Transición para el efecto hover */
+                }
+        
+                #contenedor:hover {
+                    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6); /* Más sombra en hover */
+                }
+        
+                .form-control{
+                border: 2px solid #ced4da;
+                transition: border-color 0.3s;
+                }
+        
+                .form-control:focus {
+                border-color: #007bff; /* Cambia el color del borde cuando el campo tiene el foco */
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Agrega una sombra cuando el campo tiene el foco */
+                }
+            </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Maneja el clic en el botón de sumar
+                $(document).on("click", ".boton_sumar", function(event) {
+                    event.preventDefault();
+                    var url = $(this).attr("href");
+                
+                    // Realiza una solicitud AJAX GET a la URL
+                    $.get(url, function(data) {
+                    // Actualiza solo la parte de la tabla del carrito
+                    $("#table-car").html($(data).find("#table-car").html());
+                    });
+                });
+
+                // Maneja el clic en el botón de restar (puedes hacer lo mismo para eliminar)
+                $(document).on("click", ".boton_restar", function(event) {
+                    event.preventDefault();
+                    var url = $(this).attr("href");
+                
+                    // Realiza una solicitud AJAX GET a la URL
+                    $.get(url, function(data) {
+                    // Actualiza solo la parte de la tabla del carrito
+                    $("#table-car").html($(data).find("#table-car").html());
+                    });
+                });
+
+                
+                // Maneja el clic en el botón de sumar
+                $(document).on("click", ".boton_eliminar", function(event) {
+                    event.preventDefault();
+                    var url = $(this).attr("href");
+                
+                // Muestra un alert de confirmación
+                var confirmar = confirm("¿Realmente deseas eliminar?");
+
+                // Si el usuario hace clic en "Sí", realiza la solicitud AJAX GET
+                if (confirmar) {
+                    $.get(url, function(data) {
+                        // Actualiza solo la parte de la tabla del carrito
+                        $("#table-car").html($(data).find("#table-car").html());
+                    });
+                }
+                });
+            });
+        </script>

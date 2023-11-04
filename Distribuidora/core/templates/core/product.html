@@ -1,0 +1,137 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Productos {% endblock %}</title>
+
+{% block content %}
+
+<style>
+
+    #data_table {
+        width: 70%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color:#EAECEE;
+    }
+
+    #data_table th,
+    #data_table td {
+        padding: 12px; /* Aumentar el padding para engrosar la tabla */
+        border: 3px solid #ccc; /* Engrosar los bordes */
+        text-align: center;
+    }
+
+    #data_table th {
+        background-color: #f2f2f2;
+    }
+
+    #data_table img {
+        max-width: 100px;
+        height: auto;
+    }
+
+    #data_table td:nth-child(3) {
+        font-weight: bold;
+    }
+</style>
+
+<div class="coffee_section layout_padding">
+    <div class="container">
+        <div class="row">
+           <h1 class="coffee_taital">Nuestra Lista de Productos</h1>
+           <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+        </div>
+    </div>
+    
+    <div class="container pt-5">
+        <div class="form-group">
+            <label for="category-filter">Filtrar por categoría:</label>
+            <br>
+            <select id="category-filter" class="form-control">
+                <option value="">Todas las categorías</option>
+                    {% for category in categoria %}
+                        <option value="{{ category.id }}">{{ category.nombre }}</option>
+                    {% endfor %}
+             </select>
+        </div>
+
+        <table id="data_table" class="table table-striped mt-3" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Productos</th>
+                    <th>Precio</th>
+                    <th>Categoria</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody id="product-table-body">
+
+                {% for productos in projects %}
+                <tr class="product-row" data-category="{{ productos.categories.all.0.id }}">
+                    <td>{{ productos.nombre_producto }}</td>
+                    <td><img src="{{ productos.imagen.url }}" alt="" style="width:50px;"></td>
+                    <td>${{ productos.precio|floatformat:0 }}</td>
+                    <td>{{ productos.categories.all|join:", " }}</td> 
+                    <td>{{ productos.descripcion}}</td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/Spanish.json"></script> <!-- Agregar traducciones en español -->
+
+
+<script>
+  // Function to toggle the product table visibility
+  function toggleProducts() {
+    var productTable = $('#data_table');
+    if (productTable.is(':visible')) {
+      productTable.hide();
+    } else {
+      productTable.show();
+    }
+  }
+
+  // Attach the toggleProducts function to the click event of the toggle-products div
+  $('.toggle-products').on('click', function() {
+    toggleProducts();
+  });
+
+  // Filter products based on category
+  $('#category-filter').on('change', function() {
+    var selectedCategoryId = $(this).val();
+
+    if (selectedCategoryId === '') {
+      // Show all products if no category is selected
+      $('.product-row').show();
+    } else {
+      // Hide all products
+      $('.product-row').hide();
+
+      // Show only products from the selected category
+      $('.product-row[data-category="' + selectedCategoryId + '"]').show();
+    }
+  });
+
+  // Filter products by category initially
+  $('#category-filter').trigger('change');
+
+  // Initialize the datatable with 25 rows per page
+  $(document).ready(function() {
+    $('#data_table').DataTable({
+      "pageLength": 25
+    });
+  });
+</script>
+
+{% endblock %}

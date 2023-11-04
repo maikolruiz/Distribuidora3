@@ -1,0 +1,100 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Registro {% endblock %}</title>
+
+{% block content %}
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkTerminos = document.getElementById("checkTerminos");
+        const btnConfirmar = document.getElementById("btnConfirmar");
+        const recaptchaElement = document.querySelector(".g-recaptcha");
+
+        // Función para habilitar o deshabilitar el botón de confirmación
+        function actualizarEstadoBoton() {
+            if (checkTerminos.checked && grecaptcha.getResponse(recaptchaElement.dataset.widgetid) !== "") {
+                btnConfirmar.disabled = false;
+            } else {
+                btnConfirmar.disabled = true;
+            }
+        }
+
+        // Escuchar cambios en la casilla de términos y condiciones
+        checkTerminos.addEventListener("change", function () {
+            actualizarEstadoBoton();
+        });
+
+        // Inicializar ReCaptcha y escuchar cambios
+        const recaptchaWidgetId = grecaptcha.render(recaptchaElement, {
+            'sitekey': '6LeAKNEnAAAAAKaKip5FCqzJrXyhCRRJdGylKzZg',
+            'callback': actualizarEstadoBoton
+        });
+    });
+</script>
+
+    <div class="coffee_section layout_padding">
+        <div class="container">
+        <div class="row">
+            <h1 class="coffee_taital">Registro de Usuario</h1>
+            <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+        </div>
+        </div>
+        <style>.errorlist{color:red;}</style>
+        <div class="capa">
+            <main role="main">
+                <div class="container" id="contenedor">
+                    <div class="row mt-3">
+                        <div class="col-md-9 mx-auto mb-5">
+                            <form action="" method="post"> {% csrf_token %}
+                                {{form.as_p}}
+                                <br>
+                                <h3 class="mb-4">TERMINOS Y CONDICIONES.</h3>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkTerminos">
+                                    <label class="form-check-label" for="checkTerminos">
+                                        Acepto los términos y condiciones
+                                    </label>
+                                </div>
+                                <p>
+                                    <input id="btnConfirmar" type="submit" class="btn btn-primary btn-block" value="Confirmar" disabled>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <style>
+        #contenedor {
+          width: 60%; /* Ancho del contenedor al 50% de la ventana */
+          margin-top: 30px;
+          margin-bottom: 30px;
+          padding: 20px;
+          border: 1px solid white; /* Contorno limpio */
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra suave */
+          text-align: center;
+          transition: box-shadow 0.3s; /* Transición para el efecto hover */
+        }
+  
+        #contenedor:hover {
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6); /* Más sombra en hover */
+        }
+  
+        .form-control{
+          border: 2px solid #ced4da;
+          transition: border-color 0.3s;
+        }
+  
+        .form-control:focus {
+          border-color: #007bff; /* Cambia el color del borde cuando el campo tiene el foco */
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Agrega una sombra cuando el campo tiene el foco */
+        }
+      </style>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+section{
+    width: 100%;
+    height: auto;
+}
+
+.container_portafolio{
+    width: 80%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    column-gap: 30px;
+    margin: auto;
+}
+
+.card{
+    width: 100% !important;
+    margin: 15px;
+    border-radius: 6px;
+}

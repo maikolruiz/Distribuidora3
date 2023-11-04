@@ -1,0 +1,126 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block head %}
+  <!-- Enlace al archivo CSS externo -->
+  <link rel="stylesheet" href="{% static 'core/css/contacto_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- contact section start -->
+<div class="contact_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="contact_taital">Contactanos</h1>
+                <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="map_main">
+                    <div class="map-responsive text-center">
+                        <iframe src="https://www.google.com/maps/embed?pb=!4v1694719993908!6m8!1m7!1s_qpcKQk-wLu_ughKeZlTCA!2m2!1d4.437491034843671!2d-75.17710975297662!3f277.5369438077446!4f2.0550108781362155!5f0.7820865974627469" width="600" height="450" style="border:0; margin: 0; padding: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mail_section_1">
+                    <form action="" method="POST" id="contenedor">
+                        {% csrf_token %}
+
+                        <style>
+                            .contenedor_formulario{
+                                padding-top: 40px;
+                                margin-left: 40px;                                
+                            }
+
+                            .btn-primary {
+                                color: #fff;
+                                font-weight: bold;
+                                background-color: #d07d6b;
+                                border-color: #d07d6b;
+
+                            }
+
+                            .btn-primary:hover {
+                                color: #fff;
+                                font-weight: bold;
+                                background-color: #c1785c;
+                                border-color: #a15e4c;
+                            }
+                        </style>
+
+                        <div class="contenedor_formulario">
+                            <div class="row justify-content-center">
+                            
+                                
+                                    
+                                        {{ form.nombre }}
+                                        <div class="text-danger">{{ form.nombre.errors }}</div>
+                                    
+                                    
+                                        {{ form.correo }}
+                                        <div class="text-danger">{{ form.correo.errors }}</div>
+                                    
+                                    
+                                        {{ form.contenido }}
+                                        <div class="text-danger">{{ form.contenido.errors }}</div>
+
+                                        <button class="btn btn-primary send_bt" type="submit">Enviar</button>
+                                    
+                            </div>
+                            <div class="row mt-3">
+                                {% if 'ok' in request.GET %}
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        Su mensaje fue enviado con éxito.
+                                        <button type="button" class="close" data-dismiss="alert"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if 'fail' in request.GET %}
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        Su mensaje no pudo ser enviado.
+                                        <button type="button" class="close" data-dismiss="alert"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+                
+        </div>
+
+    </div>
+</div>
+<style>
+    .alert {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+</style>
+
+<script>
+    setTimeout(function() {
+        $(".alert").fadeOut("slow");
+    }, 5000);
+</script>
+<!-- contact section end -->
+{% endblock %}

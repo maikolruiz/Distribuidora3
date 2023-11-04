@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mensaje al usuario</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mensaje.css' %}">
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="background-color: #d98473; color: #fff; padding: 10px; text-align: center;">
+                <h1>Confirmación de Pedido</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px;">
+                <p>Hola {{nombreusuario}}</p>
+                <p>Nº de pedido: {{pedido.id}}</p>
+                <p>Email del usuario: {{emailusuario}}</p>
+                <p>pedidos: {{lineas_pedido}}</p>
+                <p>Ciudad: {{ user_profile_form.ciudad.value }}</p>
+                <p>Dirección: {{ user_profile_form.direccion.value }}</p>
+                <p>Teléfono: {{ user_profile_form.telefono.value }}</p>
+                <p>Precio Total:${{ precio_total|floatformat:0}}</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

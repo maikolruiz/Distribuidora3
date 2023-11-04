@@ -1,0 +1,172 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Inicio {% endblock %}</title>
+
+{% block content %}
+
+    <!-- coffee section start
+      <div class="coffee_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <h1 class="coffee_taital">Nuestros Productos</h1>
+               <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+            </div>
+         </div>
+         <div class="coffee_section_2">
+            <div id="main_slider" class="carousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+
+                  {% for productos in projects %}
+
+                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="container-fluid">
+                           <div class="row row-cols-3 row-colds-md-4 g-3">
+                              <div class="col">
+                                 <div class="col-lg-3 col-md-6">
+                                    <div class="image-container">
+                                       <div class="coffee_img"><img src="{{ productos.imagen.url }}" alt=""></div>
+                                    </div>
+                                    <h3 class="types_text">{{ productos.nombre_producto }}</h3>
+                                    <p class="looking_text">{{ productos.descripcion }}</p>
+                                    <div class="read_bt"><a href="{{ productos.link }}">Read More</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <style>
+                        .col {
+                            display: grid !important;
+                            grid-template-columns: repeat(4,auto);
+                            column-gap: 50px;
+                            align-items: center;
+                            width: 90%;
+                            margin: auto;
+                        }
+                        /* Estilos para las imágenes dentro de las cards */
+                        .image-container {
+                            height: 200px;
+                            overflow: hidden;
+                        }
+                        .image-fit {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain; /* Ajustar la imagen sin recortar */
+                        }
+                    </style> 
+
+                  {% endfor %}
+
+               </div>
+               <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                  <i class="fa fa-arrow-left"></i>
+               </a>
+               <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                  <i class="fa fa-arrow-right"></i>
+               </a>
+            </div>
+         </div>
+      </div>
+     coffee section end -->
+     <!-- about section start -->
+     <div class="about_section layout_padding">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <h1 class="about_taital">Un Poco De Nosotros</h1>
+                 <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+              </div>
+           </div>
+           <div class="about_section_2 layout_padding">
+              <div class="image_iman"><img src="{% static 'core/images/camion1.jpeg' %}" class="about_img"></div>
+              <div class="about_taital_box">
+                 <h1 class="about_taital_1">Distribuidora Conde's</h1>
+                 <p class=" about_text">Comprometida enfocada en calidad, servicio y respaldo a nuestros clientes, espera crecer 
+                  su producción en Marcas propias, lograr el liderazgo y posicionamiento a nivel nacional 
+                  en la categoría, mejorar cada día así obtener la confianza de cada uno de nuestros 
+                  clientes potenciales.</p>
+                 <div class="readmore_btn"><a href="{% url 'acerca' %}">Ver Más</a></div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- about section end -->
+     <!-- client section start -->
+     <div class="client_section layout_padding">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <h1 class="about_taital">Algunos de nuestros productos</h1>
+                 <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+              </div>
+           </div>
+           <div class="client_section_2">
+              <div class="client_taital_main">
+                 <div class="client_left">
+                    <div class="client_img"><img src="{% static 'core/images/huevos-A.png' %}"></div>
+                 </div>
+                 <div class="client_right">
+                    <h3 class="moark_text">Huevos</h3>
+                    <p class="client_text"> Cubeta de huevos en presentacion de huevos tipo AA, A y B. Cada una maneja su precio segun el tipo de huevo.   </p>
+                 </div>
+              </div>
+              <div class="client_taital_main">
+                 <div class="client_left">
+                    <div class="client_img"><img src="{% static 'core/images/lateo1.png' %}"></div>
+                 </div>
+                 <div class="client_right">
+                    <h3 class="moark_text">Leche</h3>
+                    <p class="client_text"> Bolsas de leche en diferente presentaciones, ya sea de 900, 1000, 1100, 400, 900ml marca la esmeralda y tambien en presentacion de 900ml marca fortimilk. </p>
+                 </div>
+              </div>
+              <div class="client_taital_main">
+                 <div class="client_left">
+                    <div class="client_img"><img src="{% static 'core/images/kellogs.png' %}"></div>
+                 </div>
+                 <div class="client_right">
+                    <h3 class="moark_text">Cereales</h3>
+                    <p class="client_text"> Paquetes de cereales de 8 unidades por 39 gramos, ya sea de tipo zucaritas, chococrispis, froot lops, entre otros. </p>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- client section end -->
+     <!-- blog section start -->
+     <div class="blog_section layout_padding">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <h1 class="about_taital">Proximamente</h1>
+                 <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+              </div>
+           </div>
+           <div class="blog_section_2" style="margin-bottom: 20px;">
+              <div class="row">
+                 <div class="col-md-6">
+                    <div class="blog_box">
+                       <div class="blog_img"><img src="{% static 'core/images/caramelos.png' %}"></div>
+                       <h4 class="date_text">¡NUEVO!</h4>
+                       <h4 class="prep_text">Dulces</h4>
+                       <p class="lorem_text">Variedad de paquetes de dulces en diferentes presentaciones, diferentes tamaños y precios. Seran tipo caramelos, bombas de chicle rellenso, bombones, entre otros.</p>
+                    </div>
+                 </div>
+                 <div class="col-md-6">
+                    <div class="blog_box">
+                       <div class="blog_img"><img src="{% static 'core/images/panes.jpeg' %}"></div>
+                       <h4 class="date_text">¡NUEVO!</h4>
+                       <h4 class="prep_text">Productos de panaderia</h4>
+                       <p class="lorem_text"> Variedad de productos de panaderia empacados, frescos, de buena calidad para que los tenderos surtan sus negocios constantemente para su clientela. </p>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- blog section end -->
+     
+
+{% endblock %}

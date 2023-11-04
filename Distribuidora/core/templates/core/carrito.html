@@ -1,0 +1,49 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Inicio {% endblock %}</title>
+
+{% block head %}
+  <!-- Enlace al archivo CSS externo -->
+  <link rel="stylesheet" href="{% static 'core/css/contact_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="coffee_section layout_padding">
+        <div class="container">
+            <div class="row">
+               <h1 class="coffee_taital">Tu carrito</h1>
+               <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+            </div>
+        </div>
+
+        <style>
+            #carro_p{
+                font-family: 'Viga', sans-serif;
+                margin: 0 60px 0 50px;
+            }
+
+            .boton_regresar{
+                margin-left: 25px;
+            }
+        </style>
+
+        <div class="boton_regresar">
+            <a href="{% url 'portafolio' %}"><span class="boton_regresar"><i class="fa-solid fa-arrow-left"></i></span> Seguir Comprando</a>
+        </div>
+
+        <div class="caja_carrito text-center" id="carro_p">
+            {% if request.user.is_authenticated %}
+                {% include "carro/widget.html" %}
+            {% else %}
+                <p style="text-align: center;">¡¡INICIA SESIÓN PARA VER TU CARRITO!!</p>
+                <div class="boton-fina">
+                    <a href="{% url 'login' %}" class="finalizar_b" >INICIAR SESION</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

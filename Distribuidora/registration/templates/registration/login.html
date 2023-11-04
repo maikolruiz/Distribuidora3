@@ -1,0 +1,107 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Inicio Sesión {% endblock %}</title>
+
+{% block content %}
+
+    <div class="coffee_section layout_padding">
+        <div class="container">
+           <div class="row">
+              <h1 class="coffee_taital">Inicio de Sesión</h1>
+              <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+           </div>
+        </div>
+        <style>.errorlist{color:red;}</style>
+        <div class="capa">
+          <main role="main">
+            <div class="container" id="contenedor">
+              <div class="row mt-3">
+                <div class="col-md-9 mx-auto mb-5">
+                  <form action="" method="post">{% csrf_token %}
+                    {% if 'register' in request.GET %}
+                      <div class="alert alert-success">
+                        <p>¡Usuario creado correctamente!</p>
+                      </div>
+                    {% endif %}
+                    {% if form.non_field_errors %}
+                      <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+                    {% endif %}
+                    <p>
+                      <input type="text" name="username" autofocus maxlength="254" required
+                        id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+                    </p>
+                    <p class="password-field">
+                      <input type="password" name="password" required id="id_password" class="form-control" placeholder="Contraseña"/>
+                      <span class="password-toggle" onclick="togglePasswordVisibility()"><i class="fa fa-eye"></i></span>
+                    </p>
+                    <p><input type="submit" class="btn btn-primary btn-block" value="Acceder"></p>
+                    <a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
+                    <p>
+                      ¿No tienes una cuenta?<a href="{% url 'signup'%}"> Registrate aqui.</a>
+                    </p>
+                      
+                  </form>
+                </div>
+              </div>
+            </div>
+          </main> 
+        </div>
+    </div>
+
+    <style>
+      .password-field {
+        position: relative;
+      }
+      
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 10px; /* Ajusta el espacio entre el botón y el campo de contraseña según tus preferencias */
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+
+      #contenedor {
+        width: 50%; /* Ancho del contenedor al 50% de la ventana */
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid white; /* Contorno limpio */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra suave */
+        text-align: center;
+        transition: box-shadow 0.3s; /* Transición para el efecto hover */
+      }
+
+      #contenedor:hover {
+          box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6); /* Más sombra en hover */
+      }
+
+      .form-control{
+        border: 2px solid #ced4da;
+        transition: border-color 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: #007bff; /* Cambia el color del borde cuando el campo tiene el foco */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Agrega una sombra cuando el campo tiene el foco */
+      }
+    </style>
+
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById('id_password');
+        var passwordToggle = document.querySelector('.password-toggle');
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          passwordToggle.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        } else {
+          passwordInput.type = 'password';
+          passwordToggle.innerHTML = '<i class="fa fa-eye"></i>';
+        }
+      }
+      </script>
+{% endblock %}
+

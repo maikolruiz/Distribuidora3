@@ -1,0 +1,122 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{% block title %} Portafolio {% endblock %}</title>
+
+{% block content %}
+    
+    <div class="coffee_section layout_padding">
+        <div class="container">
+            <div class="row">
+               <h1 class="coffee_taital">Nuestros Productos</h1>
+               <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+            </div>
+        </div>
+        <div id="row row-cols-3 row-colds-md-4 g-3">
+            <div class="col">
+                {% for productos in projects %}
+                <!--Proyecto-->
+                    <div class="card text-center" style="width: 18rem;">
+                        <h5 class="card-title">{{ productos.nombre_producto }}</h5>
+                        <div class="image-container">
+                            <img src="{{ productos.imagen.url }}" class="card-img-top" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-title-precio"><b>$ {{ productos.precio|floatformat:0 }} - COP</b></span>
+                            <p class="card-text">{{ productos.descripcion }}</p>
+                            <a href="{{ productos.link }}" class= "btn btn-primary"  target="_blank">Mas información</a>
+                        </div>
+
+                        <div class="card-footer text-center">
+
+                            <a href="{% url 'carro:agregar' productos.id %}"><span class="user_icon"><i class="fa-solid fa-cart-shopping"></i></span></a>
+                            
+
+                        </div>
+                    </div>
+                
+                {% endfor %}
+            </div>    
+        </div>
+    </div>
+
+    <style>
+        .col {
+            display: grid !important;
+            grid-template-columns: repeat(4,auto);
+            column-gap: 50px;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+        /* Estilos para las imágenes dentro de las cards */
+        .image-container {
+            height: 200px;
+            overflow: hidden;
+        }
+        .image-fit {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ajustar la imagen sin recortar */
+        }
+
+        /* Estilos para agregar sombra a las tarjetas sin hover */
+        .card {
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada sin hover */
+            transition: box-shadow 0.3s ease; /* Transición suave de la sombra */
+        }
+        
+        /* Cambia la sombra cuando el mouse está sobre la tarjeta */
+        .card:hover {
+            box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.4); /* Sombra menos pronunciada al pasar el mouse */
+        }
+        
+        
+
+        /* Estilos mejorados para el título de la tarjeta */
+        .card-title {
+            /*font-size: 1.5rem; *//* Tamaño de fuente aumentado */
+            font-weight: bold; /* Peso de la fuente en negrita */
+            color: #333; /* Color del texto */
+            margin-bottom: 10px; /* Espacio inferior */
+            text-transform: uppercase; /* Convertir el texto a mayúsculas */
+            text-align: center; /* Centrar el texto horizontalmente */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra de texto más pronunciada */
+            background-color: #d07d6b; /* Color de fondo del título */
+            padding: 10px; /* Espaciado interno del título */
+            color: #fff; /* Color del texto del título */
+            border-radius: 5px; /* Borde redondeado */
+        }
+        
+        /* Estilos para el precio */
+        .card-title-precio {
+            font-size: 1.5rem; /* Tamaño de fuente del precio */
+        }
+        
+        /* Estilos para el texto de la tarjeta */
+        .card-text {
+            font-size: 1rem; /* Tamaño de fuente del texto */
+            color: #666; /* Color del texto */
+            margin-bottom: 15px; /* Espacio inferior */
+        }
+        
+        /* Estilos para el botón de "Más información" */
+        .btn-primary {
+            background-color: #007bff; /* Color de fondo del botón */
+            color: #fff; /* Color del texto del botón */
+            padding: 10px 20px; /* Espaciado interno del botón */
+            font-size: 1rem; /* Tamaño de fuente del botón */
+            text-decoration: none; /* Eliminar subrayado de enlace */
+            border: none; /* Eliminar borde */
+            border-radius: 5px; /* Borde redondeado */
+        }
+        
+        /* Estilos para el icono del carrito en el pie de la tarjeta */
+        .card-footer .user_icon i {
+            font-size: 24px; /* Tamaño del icono */
+            color: #d07d6b; /* Color del icono */
+        }
+    </style> 
+
+{% endblock %}

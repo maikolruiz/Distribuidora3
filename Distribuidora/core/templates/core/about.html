@@ -1,0 +1,61 @@
+{% extends 'core/index.html' %}
+
+{% load static %}
+
+<title>{%block title %} Inicio {% endblock %}</title>
+
+{% block content %}
+      <!-- about section start -->
+      <div class="about_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <h1 class="about_taital">Acerca de Nosotros</h1>
+                  <div class="bulit_icon"><img src="{% static 'core/images/bulit-icon.png' %}"></div>
+               </div>
+            </div>
+            <div class="about_section_2 layout_padding">
+               <div class="image_iman1"><img src="{% static 'core/images/acerca1.png' %}" class="about_img"></div>
+               <div class="about_taital_box_new1">
+                  <h1 class="about_taital_1">Misión</h1>
+                  <p class=" about_text">
+                     La empresa, enfocada en producir y comercializar productos de alta calidad 
+                     que cumplan con la satisfacción de las expectativas de nuestros clientes y consumidores, 
+                     cuenta con un excelente equipo humano y tecnología de punta para generar en nuestros clientes 
+                     la confianza de entregarnos sus marcas. Así como también preocupados por el medio ambiente, 
+                     mejoramos continuamente.
+                  </p>
+               </div>
+            </div>
+            <div class="about_section_2 layout_padding">
+               <div class="image_iman2"><img src="{% static 'core/images/acerca2.png' %}" class="about_img"></div>
+               <div class="about_taital_box_new2">
+                  <h1 class="about_taital_1">Visión</h1>
+                  <p class=" about_text">
+                     Comprometida enfocada en calidad, servicio y respaldo a nuestros clientes, espera crecer 
+                     su producción en Marcas propias, lograr el liderazgo y posicionamiento a nivel nacional 
+                     en la categoría, mejorar cada día así obtener la confianza de cada uno de nuestros 
+                     clientes potenciales.
+                  </p>
+               </div>
+            </div>
+            <div class="about_section_2 layout_padding">
+               <div class="image_iman3"><img src="{% static 'core/images/about-img.png' %}" class="about_img"></div>
+               <div class="about_taital_box_new3">
+                  <h1 class="about_taital_1">Valores</h1>
+                  <p class=" about_text">
+                     Ofertar productos confiables para nuestros clientes en cuanto a calidad y servicio 
+                     a precios justos a través de los siguientes Valores:
+                     <ul>
+                        <li>Compromiso </li>
+                        <li>Trabajo en Equipo </li>
+                        <li>Honestidad </li>
+                        <li>Responsabilidad </li>
+                     </ul>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section end -->
+{% endblock %}
